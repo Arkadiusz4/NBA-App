@@ -15,7 +15,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/onboarding2.jpg'),
+              image: AssetImage('assets/onboarding3.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -31,7 +31,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/onboarding3.jpg'),
+              image: AssetImage('assets/onboarding1.jpg'),
               fit: BoxFit.cover,
             ),
           ),
