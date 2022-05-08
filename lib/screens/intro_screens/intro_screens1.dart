@@ -35,6 +35,7 @@ class IntroScreen1 extends StatelessWidget {
             child: AnimatedTextKit(
               isRepeatingAnimation: true,
               repeatForever: true,
+              pause: const Duration(seconds: 2),
               animatedTexts: [
                 RotateAnimatedText(
                   'Do you love basketball?',
