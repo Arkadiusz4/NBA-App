@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nba_app/models/user_model.dart';
+import 'package:nba_app/screens/home_screen.dart';
 import 'package:nba_app/screens/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -11,13 +16,19 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
+  Key? key;
+
+  final _auth = FirebaseAuth.instance;
+
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   FocusNode _focusNode1 = FocusNode();
   FocusNode _focusNode2 = FocusNode();
   FocusNode _focusNode3 = FocusNode();
+  FocusNode _focusNode4 = FocusNode();
 
   @override
   void initState() {
@@ -25,6 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _focusNode1 = FocusNode();
     _focusNode2 = FocusNode();
     _focusNode3 = FocusNode();
+    _focusNode4 = FocusNode();
   }
 
   @override
@@ -32,8 +44,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final usernameField = TextFormField(
       focusNode: _focusNode1,
       autofocus: false,
-      controller: emailController,
+      controller: usernameController,
       textInputAction: TextInputAction.next,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ('Please enter your username.');
+        }
+        return null;
+      },
       onSaved: (value) {
         usernameController.text = value!;
       },
@@ -66,6 +84,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       cursorColor: Colors.orange,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ('Please enter your email.');
+        }
+        if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9+_.]+.[a-z]')
+            .hasMatch(value)) {
+          return ('Please enter a valid email.');
+        }
+        return null;
+      },
       onSaved: (value) {
         emailController.text = value!;
       },
@@ -96,6 +124,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
       controller: passwordController,
       textInputAction: TextInputAction.done,
       obscureText: true,
+      validator: (value) {
+        RegExp regExp = RegExp(r'^.{6,}$');
+        if (value!.isEmpty) {
+          return ('Password is required to register!');
+        }
+        if (!regExp.hasMatch(value)) {
+          return ('Please enter a valid password (Min. 6 characters).');
+        }
+      },
       onSaved: (value) {
         passwordController.text = value!;
       },
@@ -120,14 +157,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
 
-    final loginButton = Material(
+    final confirmPasswordField = TextFormField(
+      focusNode: _focusNode4,
+      autofocus: false,
+      controller: confirmPasswordController,
+      textInputAction: TextInputAction.done,
+      obscureText: true,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ('Password can\'t be empty!');
+        }
+        if (confirmPasswordController.text != passwordController.text) {
+          return ('Passwords don\'t match.');
+        }
+        return null;
+      },
+      onSaved: (value) {
+        confirmPasswordController.text = value!;
+      },
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        prefixIcon: Icon(
+          Icons.key,
+          color: (_focusNode4.hasFocus) ? Colors.orange : Colors.grey,
+        ),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Confirm Password",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+              color: (_focusNode4.hasFocus) ? Colors.orange : Colors.grey,
+              width: 1.5),
+        ),
+      ),
+    );
+
+    final signupButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(10),
       color: Colors.orange,
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {},
+        onPressed: () {
+          signup(emailController.text, passwordController.text);
+        },
         child: const Text(
           "Sign Up",
           textAlign: TextAlign.center,
@@ -194,6 +272,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 10,
                         ),
                         passwordField,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        confirmPasswordField,
                       ],
                     ),
                   ),
@@ -202,7 +284,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 80),
-                    child: loginButton,
+                    child: signupButton,
                   ),
                   const SizedBox(
                     height: 150,
@@ -248,5 +330,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ]),
       ),
     );
+  }
+
+  void signup(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => postDetailsToFirestore())
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    }
+  }
+
+  postDetailsToFirestore() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+    UserModel userModel = UserModel();
+
+    userModel.email = user!.email;
+    userModel.uid = user.uid;
+    userModel.username = usernameController.text;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
+
+    Fluttertoast.showToast(msg: "Account created successfully :) ");
+
+    Navigator.pushAndRemoveUntil(
+        (context),
+        MaterialPageRoute(
+            builder: (context) => HomeScreen(
+                  key: key,
+                )),
+        (route) => false);
   }
 }
