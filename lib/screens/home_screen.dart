@@ -10,8 +10,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('sasfsafaf'),
+    return Scaffold(
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text('Name'),
+          const Text('Email'),
+          MaterialButton(
+            onPressed: () {},
+            color: Colors.orange,
+            child: const Text('Log Out'),
+          )
+        ],
+      )),
     );
   }
 }

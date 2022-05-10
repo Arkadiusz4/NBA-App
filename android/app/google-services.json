@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "776894857528",
+    "project_id": "nba-app-79821",
+    "storage_bucket": "nba-app-79821.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776894857528:android:66968a4fa6710da8f141cd",
+        "android_client_info": {
+          "package_name": "com.example.nba_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776894857528-mlqhr1et0qsusimur2il8ffjlo2qjfsu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nba_app",
+            "certificate_hash": "ea9c3964c3aca56060029150d4b463f7741ab47d"
+          }
+        },
+        {
+          "client_id": "776894857528-4e3vfflllke6m9uou99rr5ud0b3mon5k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNScD520CApbmBT_FTmrHdiEBamDlLaTA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776894857528-4e3vfflllke6m9uou99rr5ud0b3mon5k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
