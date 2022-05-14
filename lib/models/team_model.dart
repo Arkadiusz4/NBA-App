@@ -1,21 +1,43 @@
 class TeamResponse {
-  String? teamKey;
-  String? teamName;
-  String? teamLogo;
+    TeamResponse({
+        this.success,
+        this.result,
+    });
 
-  TeamResponse({this.teamKey, this.teamName, this.teamLogo});
+    int? success;
+    List<Result>? result;
 
-  TeamResponse.fromJson(Map<String, dynamic> json) {
-    teamKey = json['team_key'];
-    teamName = json['team_name'];
-    teamLogo = json['team_logo'];
-  }
+    factory TeamResponse.fromJson(Map<String, dynamic> json) => TeamResponse(
+        success: json["success"],
+        result: List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['team_key'] = teamKey;
-    data['team_name'] = teamName;
-    data['team_logo'] = teamLogo;
-    return data;
-  }
+    Map<String, dynamic> toJson() => {
+        "success": success,
+        "result": List<dynamic>.from(result!.map((x) => x.toJson())),
+    };
+}
+
+class Result {
+    Result({
+        this.teamKey,
+        this.teamName,
+        this.teamLogo,
+    });
+
+    String? teamKey;
+    String? teamName;
+    String? teamLogo;
+
+    factory Result.fromJson(Map<String, dynamic> json) => Result(
+        teamKey: json["team_key"],
+        teamName: json["team_name"],
+        teamLogo: json["team_logo"] == null ? null : json["team_logo"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "team_key": teamKey,
+        "team_name": teamName,
+        "team_logo": teamLogo == null ? null : teamLogo,
+    };
 }
