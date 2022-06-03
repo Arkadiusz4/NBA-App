@@ -79,8 +79,8 @@ class _TeamScreenState extends State<TeamScreen> {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          Text(
-                            snapshot.data.teamName.toString(),
+                          const Text(
+                            '',
                             style: TextStyle(color: Colors.black),
                           ),
                         ],
