@@ -26,22 +26,22 @@ App made in Dart and Flutter. Actually finished because I couldn't find any free
 
 ### Splash Screen
 
-<img src="https://user-images.githubusercontent.com/71427558/158626863-4b10bcf1-8e58-4c4a-ae55-78f9d8c8129f.PNG" width="300"> <img src="https://user-images.githubusercontent.com/71427558/158628448-7d5e9590-e2f7-4877-8ec5-5761151a9494.PNG" width="300">
+<img src="https://user-images.githubusercontent.com/71427558/171959332-1bf133e6-53f7-487b-891e-9c29befa5f46.PNG" width="300"> 
 
 ---
 
 ### On Boarding Screen
-<img src="https://user-images.githubusercontent.com/71427558/158628963-6e593160-2eb0-49eb-9b08-91774af7abc3.PNG" width="300"> <img src="https://user-images.githubusercontent.com/71427558/158629038-4dce2044-bd4a-4490-b8cd-bae185f9c323.PNG" width="300">
+<img src="https://user-images.githubusercontent.com/71427558/171959369-31fc72e3-d9a7-4342-82ac-2764404b59fb.PNG" width="300"> <img src="https://user-images.githubusercontent.com/71427558/171959629-0eabba97-7711-4817-9e48-b4003b74161b.PNG" width="300"> <img src="https://user-images.githubusercontent.com/71427558/171959855-4f7cc63b-72d3-45ef-836d-0673ea8915de.PNG" width="300">
 
 ---
 
 ### Login Screen
-<img src="https://user-images.githubusercontent.com/71427558/158627885-7575dcbc-49e6-4a44-a513-815b432f3750.PNG" width="300">
+<img src="https://user-images.githubusercontent.com/71427558/171960135-375e7249-6f7e-48e0-9dc1-5d6d058f5b2d.PNG" width="300">
 
 ---
 
 ### Register Screen
-<img src="https://user-images.githubusercontent.com/71427558/158627967-1656ca2a-55b8-47cd-afeb-c45203551ddc.PNG" width="300">
+<img src="https://user-images.githubusercontent.com/71427558/171960013-caeb5c22-5dcf-4fc9-b641-aaf05398cc56.PNG" width="300">
 
 ---
 
