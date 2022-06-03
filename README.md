@@ -9,9 +9,9 @@ App made in Dart and Flutter. Actually finished because I couldn't find any free
 4. [Technologies and Plugins](#technologies-and-plugins)
 
 <a name="nba-app-ui"></a>         
-## Netflix Redesign UI
+## NBA App UI
 
-<img src="https://user-images.githubusercontent.com/71427558/158649513-73b03720-ef48-403f-9563-ae08b12f8c60.jpeg">
+<img src="https://user-images.githubusercontent.com/71427558/171962377-9f0b66f0-78fd-4846-9685-656d359b2912.jpeg">
 
 <a name="description"></a>
 ## Description
